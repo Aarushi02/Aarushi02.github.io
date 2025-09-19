@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aarushi — Data Science Portfolio</title>
+  <meta name="description" content="Data Scientist portfolio: projects, skills, resume, and contact." />
+  <meta name="author" content="Aarushi" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind via CDN (JIT) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            brand: {
+              50: '#f2fbff', 100: '#e6f7ff', 200: '#bfeaff', 300: '#99dcff',
+              400: '#4fc0ff', 500: '#1ea7ff', 600: '#0a8de6', 700: '#0671b4',
+              800: '#054f7a', 900: '#032d40'
+            }
+          },
+          boxShadow: {
+            glow: '0 10px 30px rgba(30,167,255,0.25)'
+          }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .glass { backdrop-filter: saturate(180%) blur(8px); }
+  </style>
+</head>
+<body class="bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+  <!-- Sticky Nav -->
+  <header class="sticky top-0 z-40 glass bg-white/70 dark:bg-slate-950/70 border-b border-slate-200/60 dark:border-slate-800">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#home" class="font-extrabold tracking-tight text-xl">Aarushi</a>
+      <nav class="hidden md:flex gap-6 text-sm font-medium">
+        <a href="#projects" class="hover:text-brand-600">Projects</a>
+        <a href="#skills" class="hover:text-brand-600">Skills</a>
+        <a href="#experience" class="hover:text-brand-600">Experience</a>
+        <a href="#education" class="hover:text-brand-600">Education</a>
+        <a href="#contact" class="hover:text-brand-600">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="resume.pdf" class="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-brand-600 text-white px-3 py-2 text-sm shadow-glow hover:bg-brand-700" target="_blank" rel="noopener">Resume</a>
+        <button id="themeToggle" aria-label="Toggle dark mode" class="rounded-xl border border-slate-200 dark:border-slate-800 px-3 py-2 text-sm">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-block text-xs uppercase tracking-widest text-brand-600 font-semibold">Data • AI • Analytics</span>
+        <h1 class="mt-3 text-4xl sm:text-5xl font-extrabold leading-tight">Hi, I'm <span class="text-brand-600">Aarushi</span>. I build ML and data products end to end.</h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl">Data Scientist specializing in machine learning, NLP, and analytics. I build production-grade models, clean data pipelines, and thoughtful visualizations.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#projects" class="rounded-2xl bg-brand-600 text-white px-4 py-2 shadow-glow hover:bg-brand-700">View Projects</a>
+          <a href="mailto:aarushi@example.com" class="rounded-2xl border border-slate-300 dark:border-slate-700 px-4 py-2 hover:border-brand-600">Contact Me</a>
+          <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="rounded-2xl border border-slate-300 dark:border-slate-700 px-4 py-2">GitHub ↗</a>
+          <a href="#" target="_blank" rel="noopener" class="rounded-2xl border border-slate-300 dark:border-slate-700 px-4 py-2">LinkedIn ↗</a>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-2 text-xs text-slate-500">
+          <span class="rounded-full border px-3 py-1">Python</span>
+          <span class="rounded-full border px-3 py-1">PyTorch</span>
+          <span class="rounded-full border px-3 py-1">Jupyter</span>
+          <span class="rounded-full border px-3 py-1">scikit‑learn</span>
+          <span class="rounded-full border px-3 py-1">Pandas</span>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-1 shadow-xl">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=crop" alt="Data visualization banner" class="rounded-2xl object-cover w-full h-[320px]">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-t border-b border-slate-200/70 dark:border-slate-800">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
+        <a href="https://github.com/Aarushi02?tab=repositories" target="_blank" rel="noopener" class="text-sm text-brand-600 hover:underline">See all on GitHub ↗</a>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Project Card -->
+        <article class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-5 shadow-sm hover:shadow-md transition">
+          <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop" alt="Project thumbnail" class="rounded-2xl h-40 w-full object-cover">
+          <h3 class="mt-4 font-semibold text-lg">Vehicle Sentiment Analysis — IMDB (LSTM/GRU)</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Tokenization + padded sequences, baseline LSTM → improved GRU with pre‑trained embeddings.</p>
+          <div class="mt-3 flex flex-wrap gap-2 text-xs">
+            <span class="rounded-full border px-2 py-1">PyTorch</span>
+            <span class="rounded-full border px-2 py-1">NLTK</span>
+            <span class="rounded-full border px-2 py-1">IMDB</span>
+          </div>
+          <div class="mt-4 flex gap-3 text-sm">
+            <a href="https://github.com/Aarushi02/text-sentiment-lstm-gru" target="_blank" rel="noopener" class="underline">Code</a>
+            <a href="https://github.com/Aarushi02/text-sentiment-lstm-gru#readme" target="_blank" rel="noopener" class="underline">README</a>
+          </div>
+        </article>
+
+        <article class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-5 shadow-sm hover:shadow-md transition">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Project thumbnail" class="rounded-2xl h-40 w-full object-cover">
+          <h3 class="mt-4 font-semibold text-lg">Vision Transformer — Cats vs Dogs</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Fine-tuned ViT (timm) with Grad-CAM explainability & Gradio UI for inference.</p>
+          <div class="mt-3 flex flex-wrap gap-2 text-xs">
+            <span class="rounded-full border px-2 py-1">PyTorch</span>
+            <span class="rounded-full border px-2 py-1">Gradio</span>
+            <span class="rounded-full border px-2 py-1">ViT</span>
+          </div>
+          <div class="mt-4 flex gap-3 text-sm">
+            <a href="https://github.com/Aarushi02/vit-cats-dogs" target="_blank" rel="noopener" class="underline">Code</a>
+            <a href="#" class="underline">Demo</a>
+          </div>
+        </article>
+
+        <article class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-5 shadow-sm hover:shadow-md transition">
+          <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=1200&auto=format&fit=crop" alt="Project thumbnail" class="rounded-2xl h-40 w-full object-cover">
+          <h3 class="mt-4 font-semibold text-lg">CO₂ Emissions Analysis</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">SQL‑normalized schema + feature engineering (Fuel Efficiency Ratio) + dashboards.</p>
+          <div class="mt-3 flex flex-wrap gap-2 text-xs">
+            <span class="rounded-full border px-2 py-1">SQL</span>
+            <span class="rounded-full border px-2 py-1">Pandas</span>
+            <span class="rounded-full border px-2 py-1">Power BI</span>
+          </div>
+          <div class="mt-4 flex gap-3 text-sm">
+            <a href="https://github.com/Aarushi02/vehicle-emissions" target="_blank" rel="noopener" class="underline">Code</a>
+            <a href="#" class="underline">Dashboard</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Skills</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+          <h3 class="font-semibold">ML & Data</h3>
+          <div class="mt-3 flex flex-wrap gap-2 text-sm">
+            <span class="rounded-full border px-3 py-1">Python</span>
+            <span class="rounded-full border px-3 py-1">PyTorch</span>
+            <span class="rounded-full border px-3 py-1">TensorFlow</span>
+            <span class="rounded-full border px-3 py-1">scikit‑learn</span>
+            <span class="rounded-full border px-3 py-1">NLP</span>
+            <span class="rounded-full border px-3 py-1">Computer Vision</span>
+            <span class="rounded-full border px-3 py-1">Time Series</span>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+          <h3 class="font-semibold">Data Engineering & Tools</h3>
+          <div class="mt-3 flex flex-wrap gap-2 text-sm">
+            <span class="rounded-full border px-3 py-1">SQL</span>
+            <span class="rounded-full border px-3 py-1">Spark</span>
+            <span class="rounded-full border px-3 py-1">Airflow</span>
+            <span class="rounded-full border px-3 py-1">Docker</span>
+            <span class="rounded-full border px-3 py-1">AWS/GCP/Azure</span>
+            <span class="rounded-full border px-3 py-1">Power BI</span>
+            <span class="rounded-full border px-3 py-1">Tableau</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-t border-b border-slate-200/70 dark:border-slate-800">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-8">Experience</h2>
+      <div class="space-y-6">
+        <!-- Role -->
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Data Analyst — Company Name</h3>
+            <span class="text-sm text-slate-500">2024 – Present</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Built dashboards and automated ETL, reducing manual reporting by 60%.</p>
+          <ul class="mt-2 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+            <li>Designed scalable data models; improved query latency by 35%.</li>
+            <li>Productionized ML classification; +12% accuracy vs baseline.</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">ML Intern — Organization</h3>
+            <span class="text-sm text-slate-500">2023</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Fine‑tuned transformer for text classification; shipped inference API.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Education</h2>
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+        <div class="flex items-center justify-between">
+          <h3 class="font-semibold">M.S. in Data Science — University Name</h3>
+          <span class="text-sm text-slate-500">Expected Dec 2025</span>
+        </div>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Coursework: ML, Deep Learning, NLP, Databases, Distributed Systems.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-8 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold">Let’s build something together</h2>
+        <p class="mt-2 text-slate-600 dark:text-slate-300">Open to internships, full‑time roles, and collaborations.</p>
+        <div class="mt-6 flex flex-wrap gap-3 justify-center">
+          <a href="mailto:aarushi@example.com" class="rounded-2xl bg-brand-600 text-white px-5 py-2.5 shadow-glow hover:bg-brand-700">Email Me</a>
+          <a href="https://cal.com/yourhandle" class="rounded-2xl border px-5 py-2.5">Book time</a>
+          <a href="https://github.com/Aarushi02" class="rounded-2xl border px-5 py-2.5">GitHub</a>
+          <a href="#" class="rounded-2xl border px-5 py-2.5">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> Aarushi. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="#home" class="hover:text-brand-600">Back to top ↑</a>
+        <a href="/sitemap.xml" class="hover:text-brand-600">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const KEY = 'preferred-theme';
+    function applyTheme(t){
+      if(t === 'dark'){ root.classList.add('dark'); toggle.textContent = '☀️'; }
+      else { root.classList.remove('dark'); toggle.textContent = '🌙'; }
+    }
+    const saved = localStorage.getItem(KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(saved);
+    toggle.addEventListener('click', () => {
+      const next = root.classList.contains('dark') ? 'light' : 'dark';
+      localStorage.setItem(KEY, next);
+      applyTheme(next);
+    });
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
