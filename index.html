@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,27 +8,26 @@
   <meta name="author" content="Aarushi Jugran" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans:    ['DM Sans', 'ui-sans-serif', 'system-ui'],
-            display: ['Syne', 'ui-sans-serif'],
-            mono:    ['DM Mono', 'ui-monospace']
+            sans:    ['DM Sans',  'ui-sans-serif',  'system-ui'],
+            display: ['Syne',     'ui-sans-serif'],
+            mono:    ['DM Mono',  'ui-monospace',   'monospace']
           },
           colors: {
             brand: {
-              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
-              400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
-              800: '#1e40af', 900: '#1e3a8a'
+              50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',
+              400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8'
             }
           },
           boxShadow: {
             glow: '0 0 22px rgba(59,130,246,0.38)',
-            card: '0 20px 40px rgba(0,0,0,0.28)'
+            card: '0 20px 40px rgba(0,0,0,0.22)'
           }
         }
       },
@@ -37,304 +36,393 @@
   </script>
   <style>
     html { scroll-behavior: smooth; }
-    .glass { backdrop-filter: saturate(180%) blur(12px); }
+    .glass { backdrop-filter: saturate(180%) blur(14px); }
 
-    /* hero background grid */
+    /* hero grid */
     .hero-grid {
       background-image:
-        linear-gradient(rgba(96,165,250,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(96,165,250,0.05) 1px, transparent 1px);
+        linear-gradient(rgba(96,165,250,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,165,250,.05) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
     /* gradient text */
     .grad-text {
-      background: linear-gradient(135deg, #60a5fa, #22d3ee);
+      background: linear-gradient(135deg,#60a5fa,#22d3ee);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     /* timeline */
-    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline { position:relative; padding-left:1.5rem; }
     .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0; width: 1px;
-      background: linear-gradient(180deg, #3b82f6, rgba(59,130,246,0.08));
+      content:''; position:absolute; left:0; top:0; bottom:0; width:1px;
+      background: linear-gradient(180deg,#3b82f6,rgba(59,130,246,.06));
     }
     .tl-dot {
-      position: absolute;
-      left: -1.85rem; top: 0.55rem;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: #3b82f6;
-      box-shadow: 0 0 10px rgba(59,130,246,0.6);
+      position:absolute; left:-1.85rem; top:.55rem;
+      width:10px; height:10px; border-radius:50%;
+      background:#3b82f6; box-shadow:0 0 10px rgba(59,130,246,.6);
     }
 
-    /* pulsing status dot */
-    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    /* pulsing dot */
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
     .pulse-dot { animation: pulse-dot 2s infinite; }
 
-    /* scroll reveal */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s, transform .65s; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* scroll reveal — starts visible, animates in when JS runs */
+    .reveal { opacity:1; transform:none; transition:opacity .6s,transform .6s; }
+    .reveal.will-animate { opacity:0; transform:translateY(20px); }
+    .reveal.will-animate.visible { opacity:1; transform:none; }
+
+    /* tag chip hover */
+    .tag-chip {
+      display:inline-block;
+      font-family:'DM Mono',monospace;
+      font-size:.68rem;
+      padding:.15rem .55rem;
+      border-radius:.25rem;
+      border:1px solid;
+      transition: all .2s;
+      cursor: default;
+    }
+
+    /* breadcrumb path */
+    .breadcrumb { font-family:'DM Mono',monospace; font-size:.78rem; }
+
+    /* section divider */
+    .section-divider {
+      border:none;
+      border-top: 1px solid;
+      margin: 0;
+    }
+
+    /* blog card hover underline */
+    .blog-title { transition: color .2s; }
+    .blog-card:hover .blog-title { color: #60a5fa; }
   </style>
 </head>
 
-<body class="bg-white text-slate-800 dark:bg-[#080c14] dark:text-slate-100 font-sans">
+<body class="bg-white text-slate-800 dark:bg-[#080c14] dark:text-slate-100 font-sans antialiased">
 
-  <!-- ── NAV ── -->
-  <header class="sticky top-0 z-40 glass bg-white/75 dark:bg-[#080c14]/80 border-b border-slate-200/60 dark:border-slate-800/60">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <a href="#home" class="font-display font-extrabold tracking-tight text-xl">AJ<span class="text-brand-400">.</span></a>
-      <nav class="hidden md:flex gap-7 font-mono text-sm">
-        <a href="#projects"   class="text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Projects</a>
-        <a href="#skills"     class="text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Skills</a>
-        <a href="#experience" class="text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Experience</a>
-        <a href="#education"  class="text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Education</a>
-        <a href="#contact"    class="text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Contact</a>
+  <!-- ══════════════════════════════════════
+       NAV  —  terminal breadcrumb style
+  ══════════════════════════════════════ -->
+  <header class="sticky top-0 z-50 glass bg-white/80 dark:bg-[#080c14]/85 border-b border-slate-200/70 dark:border-slate-800/70">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
+
+      <!-- breadcrumb -->
+      <a href="#home" class="breadcrumb text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
+        <span class="text-brand-400">~/</span>aarushi
+      </a>
+
+      <nav class="hidden md:flex gap-6 font-mono text-sm">
+        <a href="#projects"   class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Projects</a>
+        <!-- <a href="#blog"       class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Posts</a> -->
+        <a href="#skills"     class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Skills</a>
+        <a href="#experience" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Experience</a>
+        <a href="#contact"    class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
       </nav>
-      <div class="flex items-center gap-3">
+
+      <div class="flex items-center gap-2">
         <a href="resume.aarushi.pdf" target="_blank" rel="noopener"
-           class="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-brand-500 text-white px-3.5 py-2 font-mono text-sm shadow-glow hover:bg-brand-400 hover:-translate-y-0.5 transition-all">
-          Resume ↗
+           class="hidden sm:inline-flex items-center gap-1 rounded-md bg-brand-500 text-white px-3 py-1.5 font-mono text-xs shadow-glow hover:bg-brand-400 transition-all">
+          Resume →
         </a>
         <button id="themeToggle" aria-label="Toggle dark mode"
-                class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm hover:border-brand-400 transition-colors">🌙</button>
+                class="rounded-md border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 text-sm hover:border-brand-400 transition-colors">🌙</button>
       </div>
     </div>
   </header>
 
-  <!-- ── HERO ── -->
-  <section id="home" class="relative overflow-hidden hero-grid min-h-screen flex items-center">
-    <!-- radial glow -->
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section id="home" class="relative overflow-hidden hero-grid">
     <div class="pointer-events-none absolute inset-0 flex justify-center">
       <div class="mt-10 w-[700px] h-[500px] rounded-full"
-           style="background:radial-gradient(ellipse,rgba(59,130,246,0.13) 0%,rgba(6,182,212,0.05) 40%,transparent 70%)"></div>
+           style="background:radial-gradient(ellipse,rgba(59,130,246,.12) 0%,rgba(6,182,212,.04) 40%,transparent 70%)"></div>
     </div>
 
-    <div class="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-28 sm:py-36 w-full">
-      <div class="max-w-3xl mx-auto text-center">
+    <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+      <div class="grid lg:grid-cols-[1fr_auto] gap-12 items-start">
 
-        <span class="reveal inline-flex items-center gap-2 rounded-full border border-brand-400/30 bg-brand-500/10 px-4 py-1.5 font-mono text-xs text-brand-400 tracking-widest mb-6">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399] pulse-dot"></span>
-          Open to Full-Time Roles
-        </span>
-
-        <h1 class="reveal font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight mt-2">
-          Hi, I'm<br><span class="grad-text">Aarushi Jugran</span>
-        </h1>
-
-        <p class="reveal mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
-          <strong class="text-slate-800 dark:text-slate-200 font-medium">Data Scientist</strong> building end-to-end ML systems —
-          from <strong class="text-brand-400 font-medium">NLP pipelines</strong> and
-          <strong class="text-brand-400 font-medium">RAG</strong> to production deployment and real-time dashboards.
-        </p>
-
-        <div class="reveal mt-8 flex flex-wrap gap-3 justify-center">
-          <a href="#projects"
-             class="rounded-lg bg-brand-500 text-white px-5 py-2.5 font-mono text-sm shadow-glow hover:bg-brand-400 hover:-translate-y-0.5 transition-all">
-            View Projects
-          </a>
-          <a href="mailto:aarushi.jugran@gmail.com"
-             class="rounded-lg border border-slate-300 dark:border-slate-700 px-5 py-2.5 font-mono text-sm hover:border-brand-400 hover:-translate-y-0.5 transition-all">
-            Contact Me
-          </a>
-          <a href="https://github.com/Aarushi02" target="_blank" rel="noopener"
-             class="rounded-lg border border-slate-300 dark:border-slate-700 px-5 py-2.5 font-mono text-sm hover:border-brand-400 hover:-translate-y-0.5 transition-all">
-            GitHub ↗
-          </a>
-          <a href="https://www.linkedin.com/in/aarushi-jugran-326a01217/" target="_blank" rel="noopener"
-             class="rounded-lg border border-slate-300 dark:border-slate-700 px-5 py-2.5 font-mono text-sm hover:border-brand-400 hover:-translate-y-0.5 transition-all">
-            LinkedIn ↗
-          </a>
-        </div>
-
-        <!-- Stats bar -->
-        <div class="reveal mt-14 pt-10 border-t border-slate-200/60 dark:border-slate-800/60 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-          <div>
-            <div class="font-display font-bold text-3xl text-slate-900 dark:text-white">4.0<span class="text-brand-400">/4.0</span></div>
-            <div class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mt-1">MS GPA · UB</div>
-          </div>
-          <div>
-            <div class="font-display font-bold text-3xl text-slate-900 dark:text-white">30<span class="text-brand-400">%</span></div>
-            <div class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mt-1">Dataset Diversity ↑</div>
-          </div>
-          <div>
-            <div class="font-display font-bold text-3xl text-slate-900 dark:text-white">90.2<span class="text-brand-400">%</span></div>
-            <div class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mt-1">Annotation Precision</div>
-          </div>
-          <div>
-            <div class="font-display font-bold text-3xl text-slate-900 dark:text-white">2<span class="text-brand-400">y+</span></div>
-            <div class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mt-1">Industry Experience</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PROJECTS ── -->
-  <section id="projects" class="py-20 bg-slate-50 dark:bg-slate-900/40 border-t border-b border-slate-200/70 dark:border-slate-800">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="reveal flex items-end justify-between mb-10">
+        <!-- LEFT: text -->
         <div>
-          <p class="font-mono text-xs text-brand-400 uppercase tracking-widest mb-1">// 02 — Projects</p>
-          <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Things I've built.</h2>
+          <!-- availability badge -->
+          <span class="reveal inline-flex items-center gap-2 rounded-md border border-brand-400/30 bg-brand-500/10 px-3 py-1 font-mono text-xs text-brand-400 tracking-wide mb-5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399] pulse-dot"></span>
+            Available for full-time roles
+          </span>
+
+          <h1 class="reveal font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] tracking-tight">
+            Hi, I'm<br><span class="grad-text">Aarushi Jugran</span>
+          </h1>
+
+          <p class="reveal mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+            I build end-to-end ML systems for real-world impact —
+            from <strong class="text-slate-800 dark:text-slate-200 font-medium">NLP pipelines</strong> and
+            <strong class="text-slate-800 dark:text-slate-200 font-medium">RAG</strong> to
+            production deployment and real-time dashboards, turning complex data into
+            actionable insights.
+          </p>
+
+          <!-- quick-action links — Parth style -->
+          <div class="reveal mt-7 flex flex-col sm:flex-row flex-wrap gap-3">
+            <a href="https://www.linkedin.com/in/aarushi-jugran-326a01217/" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-4 py-2 font-mono text-sm hover:border-brand-400 hover:text-brand-500 dark:hover:text-brand-400 transition-all group">
+              <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              Connect LinkedIn →
+            </a>
+            <a href="resume.aarushi.pdf" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-4 py-2 font-mono text-sm hover:border-brand-400 hover:text-brand-500 dark:hover:text-brand-400 transition-all group">
+              <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Resume Open PDF →
+            </a>
+            <a href="/cdn-cgi/l/email-protection#71101003040219185f1b041603101f31161c10181d5f121e1c" class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-4 py-2 font-mono text-sm hover:border-brand-400 hover:text-brand-500 dark:hover:text-brand-400 transition-all group">
+              <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              Email Say hi →
+            </a>
+            <a href="https://github.com/Aarushi02" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-4 py-2 font-mono text-sm hover:border-brand-400 hover:text-brand-500 dark:hover:text-brand-400 transition-all group">
+              <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub Follow →
+            </a>
+            <a href="#projects"
+               class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-4 py-2 font-mono text-sm hover:border-brand-400 hover:text-brand-500 dark:hover:text-brand-400 transition-all group">
+              <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              What I built Projects →
+            </a>
+          </div>
+
+          <!-- stats -->
+          <div class="reveal mt-10 pt-8 border-t border-slate-200/60 dark:border-slate-800/60 grid grid-cols-2 sm:grid-cols-4 gap-5">
+            <div>
+              <div class="font-display font-bold text-2xl text-slate-900 dark:text-white">4.0<span class="text-brand-400">/4.0</span></div>
+              <div class="font-mono text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">MS GPA · UB</div>
+            </div>
+            <div>
+              <div class="font-display font-bold text-2xl text-slate-900 dark:text-white">30<span class="text-brand-400">%</span></div>
+              <div class="font-mono text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Dataset Diversity ↑</div>
+            </div>
+            <div>
+              <div class="font-display font-bold text-2xl text-slate-900 dark:text-white">90.2<span class="text-brand-400">%</span></div>
+              <div class="font-mono text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Annotation Precision</div>
+            </div>
+            <div>
+              <div class="font-display font-bold text-2xl text-slate-900 dark:text-white">2<span class="text-brand-400">y+</span></div>
+              <div class="font-mono text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Industry Experience</div>
+            </div>
+          </div>
         </div>
-        <a href="https://github.com/Aarushi02?tab=repositories" target="_blank" rel="noopener"
-           class="hidden sm:block font-mono text-sm text-brand-500 hover:text-brand-400 transition-colors">
-          See all on GitHub ↗
-        </a>
-      </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        <!-- NEW: Gen AI in Education -->
-        <article class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] overflow-hidden shadow-sm hover:shadow-card hover:-translate-y-1 transition-all group">
-          <div class="h-40 flex items-center justify-center text-5xl relative"
-               style="background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(6,182,212,.08))">
-            🧠
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                 style="background:linear-gradient(135deg,rgba(59,130,246,.22),rgba(6,182,212,.12))"></div>
+        <!-- RIGHT: profile card — Parth style -->
+        <div class="reveal lg:sticky lg:top-20 flex flex-col items-center gap-4 w-full lg:w-52">
+          <!-- avatar placeholder -->
+          <div class="w-32 h-32 rounded-2xl border-2 border-brand-400/30 bg-gradient-to-br from-brand-500/20 to-cyan-500/10 flex items-center justify-center text-5xl shadow-card">
+            👩‍💻
           </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-base leading-snug">Gen AI in Education: Data Challenge</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">NLP pipeline for prompt generation and summarization — increased dataset diversity by 30% and achieved 90.2% annotation precision. Received an honorable mention.</p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-xs font-mono">
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Python</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">TensorFlow</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">NLP</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Hugging Face</span>
-            </div>
-            <div class="mt-4 flex gap-3 text-sm font-mono">
-              <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Code</a>
-              <a href="#" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Live App</a>
+          <div class="text-center">
+            <div class="font-display font-bold text-base text-slate-900 dark:text-white">Aarushi Jugran</div>
+            <div class="font-mono text-xs text-slate-500 mt-0.5">Data Scientist</div>
+            <a href="https://www.troy-banks.com" target="_blank" rel="noopener"
+               class="font-mono text-xs text-brand-400 hover:underline">Troy &amp; Banks</a>
+          </div>
+          <!-- location + status -->
+          <div class="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0d1422] p-3 text-center space-y-1.5">
+            <div class="font-mono text-xs text-slate-500">📍 Buffalo, NY</div>
+            <div class="font-mono text-xs text-emerald-500 flex items-center justify-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>
+              Open to opportunities
             </div>
           </div>
-        </article>
-
-        <!-- NEW: Radiology Summarizer -->
-        <article class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] overflow-hidden shadow-sm hover:shadow-card hover:-translate-y-1 transition-all group">
-          <div class="h-40 flex items-center justify-center text-5xl relative"
-               style="background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(59,130,246,.08))">
-            🩻
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                 style="background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(59,130,246,.12))"></div>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-base leading-snug">AI Radiology Report Summarizer</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">RAG system combining TF-IDF retrieval with RNN-attention for clinical report summarization. GRU-based sequence modeling on OpenI dataset, deployed via Streamlit.</p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-xs font-mono">
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">RAG</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">RNN+Attention</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Clinical NLP</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Streamlit</span>
-            </div>
-            <div class="mt-4 flex gap-3 text-sm font-mono">
-              <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Code</a>
-              <a href="#" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Live App</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- NEW: Cybersecurity -->
-        <article class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] overflow-hidden shadow-sm hover:shadow-card hover:-translate-y-1 transition-all group">
-          <div class="h-40 flex items-center justify-center text-5xl relative"
-               style="background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08))">
-            🛡️
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                 style="background:linear-gradient(135deg,rgba(16,185,129,.22),rgba(6,182,212,.12))"></div>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-bold text-base leading-snug">Deep Learning for Cybersecurity Analysis</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Anomaly detection with autoencoders, LSTMs &amp; Transformers on NSL-KDD and KDD'99. Evaluated with ROC-AUC and Precision-Recall to surface malicious traffic patterns.</p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-xs font-mono">
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">PyTorch</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">LSTM</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Transformers</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Plotly</span>
-            </div>
-            <div class="mt-4 flex gap-3 text-sm font-mono">
-              <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Code</a>
-              <a href="#" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Live App</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ORIGINAL: Sentiment Analysis -->
-        <article class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] overflow-hidden shadow-sm hover:shadow-card hover:-translate-y-1 transition-all">
-          <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop"
-               alt="Sentiment Analysis" class="h-40 w-full object-cover">
-          <div class="p-5">
-            <h3 class="font-display font-bold text-base leading-snug">Sentiment Analysis using LSTM — IMDB</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Tokenization + padded sequences, baseline LSTM → improved GRU with pre-trained embeddings.</p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-xs font-mono">
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">PyTorch</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">NLTK</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">IMDB</span>
-            </div>
-            <div class="mt-4 flex gap-3 text-sm font-mono">
-              <a href="https://github.com/Aarushi02/text-sentiment-lstm-gru" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Code</a>
-              <a href="https://github.com/Aarushi02/text-sentiment-lstm-gru#readme" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">README</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ORIGINAL: Vision Transformer -->
-        <article class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] overflow-hidden shadow-sm hover:shadow-card hover:-translate-y-1 transition-all">
-          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop"
-               alt="Vision Transformer" class="h-40 w-full object-cover">
-          <div class="p-5">
-            <h3 class="font-display font-bold text-base leading-snug">Vision Transformer — Cats vs Dogs</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Fine-tuned ViT (timm) with Grad-CAM explainability &amp; Gradio UI for real-time inference.</p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-xs font-mono">
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">PyTorch</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Gradio</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">ViT</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Grad-CAM</span>
-            </div>
-            <div class="mt-4 flex gap-3 text-sm font-mono">
-              <a href="https://github.com/Aarushi02/vision-transformer-pets/blob/main/code.py" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Code</a>
-              <a href="https://github.com/Aarushi02/vision-transformer-pets" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">README</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ORIGINAL: CO2 Emissions -->
-        <article class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] overflow-hidden shadow-sm hover:shadow-card hover:-translate-y-1 transition-all">
-          <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=1200&auto=format&fit=crop"
-               alt="CO2 Emissions" class="h-40 w-full object-cover">
-          <div class="p-5">
-            <h3 class="font-display font-bold text-base leading-snug">CO₂ Emissions Analysis</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">SQL-normalized schema + feature engineering (Fuel Efficiency Ratio) + Power BI dashboards.</p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-xs font-mono">
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">SQL</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Pandas</span>
-              <span class="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400">Power BI</span>
-            </div>
-            <div class="mt-4 flex gap-3 text-sm font-mono">
-              <a href="https://github.com/Aarushi02/auto-specs-emissions/blob/main/analysis.py" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">Code</a>
-              <a href="https://github.com/Aarushi02/auto-specs-emissions/blob/main/README.md" target="_blank" rel="noopener" class="text-brand-500 hover:text-brand-400 underline underline-offset-2">README</a>
-            </div>
-          </div>
-        </article>
+        </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ── SKILLS ── -->
-  <section id="skills" class="py-20">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="reveal mb-10">
-        <p class="font-mono text-xs text-brand-400 uppercase tracking-widest mb-1">// 03 — Skills</p>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">The toolkit.</h2>
+  <hr class="section-divider border-slate-200/70 dark:border-slate-800/60">
+
+  <!-- ══════════════════════════════════════
+       FEATURED PROJECTS
+  ══════════════════════════════════════ -->
+  <section id="projects" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+      <div class="reveal flex items-end justify-between mb-2">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Featured projects</h2>
+        <a href="https://github.com/Aarushi02?tab=repositories" target="_blank" rel="noopener"
+           class="font-mono text-sm text-brand-500 hover:text-brand-400 transition-colors">All Projects →</a>
       </div>
+      <hr class="section-divider border-slate-200 dark:border-slate-800 mb-6 reveal">
+
+      <!-- project list — Parth's minimal list style -->
+      <ul class="space-y-0 divide-y divide-slate-200/70 dark:divide-slate-800/70">
+
+        <li class="reveal blog-card py-5">
+          <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="group block">
+            <div class="flex flex-wrap gap-2 mb-1.5">
+              <span class="tag-chip border-blue-300/60 dark:border-blue-700/50 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20">nlp</span>
+              <span class="tag-chip border-violet-300/60 dark:border-violet-700/50 text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20">generative-ai</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">python</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">tensorflow</span>
+            </div>
+            <h3 class="blog-title font-display font-bold text-lg text-slate-900 dark:text-white">Gen AI in Education: Data Challenge</h3>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">NLP pipeline for prompt generation and summarization — increased dataset diversity by 30% and achieved 90.2% annotation precision. Honorable mention from evaluation jury.</p>
+          </a>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="group block">
+            <div class="flex flex-wrap gap-2 mb-1.5">
+              <span class="tag-chip border-blue-300/60 dark:border-blue-700/50 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20">nlp</span>
+              <span class="tag-chip border-cyan-300/60 dark:border-cyan-700/50 text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/20">rag</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">clinical-ai</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">streamlit</span>
+            </div>
+            <h3 class="blog-title font-display font-bold text-lg text-slate-900 dark:text-white">AI Radiology Report Summarizer</h3>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">Retrieval-augmented NLP combining TF-IDF retrieval with RNN-attention for clinical report summarization. GRU sequence modeling on OpenI dataset with real-time Streamlit deployment.</p>
+          </a>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <a href="https://github.com/Aarushi02" target="_blank" rel="noopener" class="group block">
+            <div class="flex flex-wrap gap-2 mb-1.5">
+              <span class="tag-chip border-emerald-300/60 dark:border-emerald-700/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20">anomaly-detection</span>
+              <span class="tag-chip border-blue-300/60 dark:border-blue-700/50 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20">deep-learning</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">pytorch</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">cybersecurity</span>
+            </div>
+            <h3 class="blog-title font-display font-bold text-lg text-slate-900 dark:text-white">Deep Learning for Cybersecurity Analysis</h3>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">Anomaly detection with autoencoders, LSTMs &amp; Transformers on NSL-KDD and KDD'99. Evaluated with ROC-AUC and Precision-Recall to surface malicious traffic patterns.</p>
+          </a>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <a href="https://github.com/Aarushi02/text-sentiment-lstm-gru" target="_blank" rel="noopener" class="group block">
+            <div class="flex flex-wrap gap-2 mb-1.5">
+              <span class="tag-chip border-blue-300/60 dark:border-blue-700/50 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20">nlp</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">pytorch</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">lstm</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">python</span>
+            </div>
+            <h3 class="blog-title font-display font-bold text-lg text-slate-900 dark:text-white">Sentiment Analysis using LSTM — IMDB</h3>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">Tokenization + padded sequences, baseline LSTM → improved GRU with pre-trained embeddings. Benchmarked across accuracy and efficiency metrics.</p>
+          </a>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <a href="https://github.com/Aarushi02/vision-transformer-pets" target="_blank" rel="noopener" class="group block">
+            <div class="flex flex-wrap gap-2 mb-1.5">
+              <span class="tag-chip border-amber-300/60 dark:border-amber-700/50 text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20">computer-vision</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">pytorch</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">vit</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">gradio</span>
+            </div>
+            <h3 class="blog-title font-display font-bold text-lg text-slate-900 dark:text-white">Vision Transformer — Cats vs Dogs</h3>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">Fine-tuned ViT (timm) with Grad-CAM explainability &amp; Gradio UI for real-time inference. Benchmarked against CNN baselines.</p>
+          </a>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <a href="https://github.com/Aarushi02/auto-specs-emissions" target="_blank" rel="noopener" class="group block">
+            <div class="flex flex-wrap gap-2 mb-1.5">
+              <span class="tag-chip border-green-300/60 dark:border-green-700/50 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20">data-analytics</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">sql</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">power-bi</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">pandas</span>
+            </div>
+            <h3 class="blog-title font-display font-bold text-lg text-slate-900 dark:text-white">CO₂ Emissions Analysis</h3>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">SQL-normalized schema + feature engineering (Fuel Efficiency Ratio) + Power BI dashboards across 194 households and sector-wise emissions analysis.</p>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!--
+  <hr class="section-divider border-slate-200/70 dark:border-slate-800/60">
+
+  LATEST POSTS  (blog section) — commented out, uncomment when ready to publish posts
+
+  <section id="blog" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+      <div class="reveal flex items-end justify-between mb-2">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Latest posts</h2>
+        <span class="font-mono text-xs text-slate-400">Coming soon →</span>
+      </div>
+      <hr class="section-divider border-slate-200 dark:border-slate-800 mb-6 reveal">
+
+      <ul class="space-y-0 divide-y divide-slate-200/70 dark:divide-slate-800/70">
+
+        <li class="reveal blog-card py-5">
+          <div class="flex flex-wrap items-center gap-3 mb-1.5">
+            <span class="font-mono text-xs text-slate-400">Coming soon</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-chip border-cyan-300/60 dark:border-cyan-700/50 text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/20">rag</span>
+              <span class="tag-chip border-violet-300/60 dark:border-violet-700/50 text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20">llm</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">ai-engineering</span>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Why Your RAG System Needs an Evaluation Harness</h3>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-2xl">RAG isn't "set and forget." Without measuring retrieval quality and failure modes, your system will confidently return stale or irrelevant context.</p>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <div class="flex flex-wrap items-center gap-3 mb-1.5">
+            <span class="font-mono text-xs text-slate-400">Coming soon</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-chip border-green-300/60 dark:border-green-700/50 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20">mlops</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">data-engineering</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">ml-systems</span>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Profiling ML Training for Energy & Performance: Lessons from Sustainable ML Research</h3>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-2xl">What I learned benchmarking NCF, Transformer-XL, GNMT, and Mask R-CNN with Scalene and CodeCarbon — and why energy trade-offs matter more than accuracy alone.</p>
+        </li>
+
+        <li class="reveal blog-card py-5">
+          <div class="flex flex-wrap items-center gap-3 mb-1.5">
+            <span class="font-mono text-xs text-slate-400">Coming soon</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-chip border-blue-300/60 dark:border-blue-700/50 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20">nlp</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">annotation</span>
+              <span class="tag-chip border-slate-300/60 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">data-quality</span>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Dataset Diversity is a Feature, Not an Afterthought</h3>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-2xl">How prompt-generation pipelines can systematically improve annotation coverage — and why 90%+ precision starts with better diversity upstream.</p>
+        </li>
+
+      </ul>
+
+      <p class="reveal mt-6 font-mono text-xs text-slate-400 italic">
+        ✍️ Blog posts are in progress — check back soon or <a href="mailto:aarushi.jugran@gmail.com" class="text-brand-400 hover:underline">reach out</a> if you'd like to discuss any of these topics.
+      </p>
+
+    </div>
+  </section>
+
+  <hr class="section-divider border-slate-200/70 dark:border-slate-800/60">
+  -->
+
+  <!-- ══════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════ -->
+  <section id="skills" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/30">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mb-2">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Skills</h2>
+      </div>
+      <hr class="section-divider border-slate-200 dark:border-slate-800 mb-8 reveal">
+
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
-          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">Machine Learning & Deep Learning</h3>
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
+          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">ML & Deep Learning</h3>
           <div class="flex flex-wrap gap-2 text-sm">
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">PyTorch</span>
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">TensorFlow</span>
@@ -345,8 +433,8 @@
           </div>
         </div>
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
-          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">NLP & Generative AI</h3>
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
+          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">NLP & Generative AI</h3>
           <div class="flex flex-wrap gap-2 text-sm">
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">Hugging Face</span>
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">RAG</span>
@@ -357,8 +445,8 @@
           </div>
         </div>
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
-          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">ML Systems & Data Engineering</h3>
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
+          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">ML Systems & Engineering</h3>
           <div class="flex flex-wrap gap-2 text-sm">
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">Docker</span>
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">PySpark</span>
@@ -369,8 +457,8 @@
           </div>
         </div>
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
-          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">Data & Feature Engineering</h3>
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
+          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">Data & Feature Engineering</h3>
           <div class="flex flex-wrap gap-2 text-sm">
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">Python</span>
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">SQL</span>
@@ -381,8 +469,8 @@
           </div>
         </div>
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
-          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">Visualization & Interfaces</h3>
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
+          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">Visualization & Interfaces</h3>
           <div class="flex flex-wrap gap-2 text-sm">
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">Streamlit</span>
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">Gradio</span>
@@ -393,8 +481,8 @@
           </div>
         </div>
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
-          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">Programming Languages</h3>
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-5 hover:border-brand-400/40 transition-colors">
+          <h3 class="font-mono text-xs text-brand-400 uppercase tracking-widest pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">Languages</h3>
           <div class="flex flex-wrap gap-2 text-sm">
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">Python</span>
             <span class="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1 hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors cursor-default">SQL</span>
@@ -407,86 +495,83 @@
     </div>
   </section>
 
-  <!-- ── EXPERIENCE ── -->
-  <section id="experience" class="py-20 bg-slate-50 dark:bg-slate-900/40 border-t border-b border-slate-200/70 dark:border-slate-800">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="reveal mb-10">
-        <p class="font-mono text-xs text-brand-400 uppercase tracking-widest mb-1">// 04 — Experience</p>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Where I've worked.</h2>
+  <hr class="section-divider border-slate-200/70 dark:border-slate-800/60">
+
+  <!-- ══════════════════════════════════════
+       EXPERIENCE
+  ══════════════════════════════════════ -->
+  <section id="experience" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mb-2">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Experience</h2>
       </div>
+      <hr class="section-divider border-slate-200 dark:border-slate-800 mb-8 reveal">
+
       <div class="max-w-3xl timeline space-y-8">
 
-        <!-- Troy & Banks DS -->
         <div class="reveal relative pl-6">
           <span class="tl-dot"></span>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6">
-            <div class="flex flex-wrap items-start justify-between gap-2">
+          <div>
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
               <div>
-                <h3 class="font-display font-bold text-base">Data Scientist</h3>
-                <p class="font-mono text-xs text-slate-500 mt-0.5">Troy &amp; Banks · Buffalo, NY</p>
+                <h3 class="font-display font-bold text-base">Data Scientist @ <a href="#" class="text-brand-500 hover:underline">Troy &amp; Banks</a></h3>
               </div>
-              <span class="font-mono text-xs text-brand-400 bg-brand-500/10 border border-brand-400/25 px-2.5 py-1 rounded-lg whitespace-nowrap">Feb 2026 – Present</span>
+              <span class="font-mono text-xs text-slate-400">Feb 2026 – Present · Buffalo, NY</span>
             </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Building an end-to-end ML system for utility bill extraction, tariff validation, and anomaly detection across PDFs and spreadsheets.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Designing scalable data ingestion and feature pipelines with rule-based and ML-assisted anomaly detection logic.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Developing Streamlit dashboards for real-time monitoring and client-ready reporting, reducing manual audit effort and turnaround time.</li>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Building an end-to-end ML system for utility bill extraction, tariff validation, and anomaly detection across PDFs and spreadsheets.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Designing scalable data ingestion and feature pipelines; applying rule-based and ML-assisted logic to detect usage and demand anomalies.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Developing Streamlit dashboards for real-time monitoring and client-ready reporting, reducing manual audit effort and turnaround time.</li>
             </ul>
           </div>
         </div>
 
-        <!-- Troy & Banks Intern -->
+        <hr class="border-slate-100 dark:border-slate-800/80 ml-6">
+
         <div class="reveal relative pl-6">
           <span class="tl-dot"></span>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6">
-            <div class="flex flex-wrap items-start justify-between gap-2">
-              <div>
-                <h3 class="font-display font-bold text-base">Data Science & AI Intern</h3>
-                <p class="font-mono text-xs text-slate-500 mt-0.5">Troy &amp; Banks · Buffalo, NY</p>
-              </div>
-              <span class="font-mono text-xs text-brand-400 bg-brand-500/10 border border-brand-400/25 px-2.5 py-1 rounded-lg whitespace-nowrap">Aug – Dec 2025</span>
+          <div>
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+              <h3 class="font-display font-bold text-base">Data Science &amp; AI Intern @ <a href="#" class="text-brand-500 hover:underline">Troy &amp; Banks</a></h3>
+              <span class="font-mono text-xs text-slate-400">Aug – Dec 2025 · Buffalo, NY</span>
             </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Prototyped the core ML pipeline for bill extraction and anomaly detection that became the foundation of the production system.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Collaborated cross-functionally to align ML outputs with client audit workflows and reporting requirements.</li>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Prototyped the core ML pipeline for bill extraction and anomaly detection — became the foundation of the production system.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Collaborated cross-functionally to align ML outputs with client audit workflows and reporting requirements.</li>
             </ul>
           </div>
         </div>
 
-        <!-- UB Research -->
+        <hr class="border-slate-100 dark:border-slate-800/80 ml-6">
+
         <div class="reveal relative pl-6">
           <span class="tl-dot"></span>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6">
-            <div class="flex flex-wrap items-start justify-between gap-2">
-              <div>
-                <h3 class="font-display font-bold text-base">Research Assistant — Sustainable ML</h3>
-                <p class="font-mono text-xs text-slate-500 mt-0.5">University at Buffalo · Buffalo, NY</p>
-              </div>
-              <span class="font-mono text-xs text-brand-400 bg-brand-500/10 border border-brand-400/25 px-2.5 py-1 rounded-lg whitespace-nowrap">Sept – Dec 2025</span>
+          <div>
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+              <h3 class="font-display font-bold text-base">Research Assistant — Sustainable ML @ <a href="https://www.buffalo.edu" target="_blank" rel="noopener" class="text-brand-500 hover:underline">University at Buffalo</a></h3>
+              <span class="font-mono text-xs text-slate-400">Sept – Dec 2025 · Buffalo, NY</span>
             </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Integrated performance and energy profiling into ML training workflows using Scalene and CodeCarbon.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Re-implemented and benchmarked large-scale models (NCF, Transformer-XL, GNMT, Mask R-CNN) for accuracy, runtime, memory, and energy trade-offs.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Supported reproducible experimentation and system-level optimization of deep learning models.</li>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Integrated performance and energy profiling into ML training workflows using Scalene and CodeCarbon.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Re-implemented and benchmarked large-scale models (NCF, Transformer-XL, GNMT, Mask R-CNN) across accuracy, runtime, memory, and energy trade-offs.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Supported reproducible experimentation and system-level optimization of deep learning models.</li>
             </ul>
           </div>
         </div>
 
-        <!-- SVC Research -->
+        <hr class="border-slate-100 dark:border-slate-800/80 ml-6">
+
         <div class="reveal relative pl-6">
           <span class="tl-dot"></span>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6">
-            <div class="flex flex-wrap items-start justify-between gap-2">
-              <div>
-                <h3 class="font-display font-bold text-base">Research Assistant</h3>
-                <p class="font-mono text-xs text-slate-500 mt-0.5">Sri Venkateswara College · New Delhi, India</p>
-              </div>
-              <span class="font-mono text-xs text-brand-400 bg-brand-500/10 border border-brand-400/25 px-2.5 py-1 rounded-lg whitespace-nowrap">Jul – Nov 2021</span>
+          <div>
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+              <h3 class="font-display font-bold text-base">Research Assistant @ <a href="#" class="text-brand-500 hover:underline">Sri Venkateswara College</a></h3>
+              <span class="font-mono text-xs text-slate-400">Jul – Nov 2021 · New Delhi, India</span>
             </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Analyzed individual carbon footprint data using statistical and regression methods across 194 households.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Performed sector-wise feature analysis to identify key drivers of emissions and behavioral patterns.</li>
-              <li class="flex gap-2"><span class="text-brand-400 shrink-0 mt-0.5">▸</span>Presented findings at ICCCIGE-2021 — International Conference on Climate Change: An Imminent Global Emergency.</li>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Analyzed individual carbon footprint data using statistical and regression methods across 194 households.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Performed sector-wise feature analysis to identify key drivers of emissions and behavioral patterns.</li>
+              <li class="flex gap-2"><span class="text-brand-400 shrink-0">‣</span>Presented findings at ICCCIGE-2021 — International Conference on Climate Change: An Imminent Global Emergency.</li>
             </ul>
           </div>
         </div>
@@ -495,111 +580,124 @@
     </div>
   </section>
 
-  <!-- ── EDUCATION ── -->
-  <section id="education" class="py-20">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="reveal mb-10">
-        <p class="font-mono text-xs text-brand-400 uppercase tracking-widest mb-1">// 05 — Education</p>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Academic background.</h2>
-      </div>
-      <div class="max-w-3xl space-y-5">
+  <hr class="section-divider border-slate-200/70 dark:border-slate-800/60">
 
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6 relative overflow-hidden">
+  <!-- ══════════════════════════════════════
+       EDUCATION
+  ══════════════════════════════════════ -->
+  <section id="education" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/30">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mb-2">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Education</h2>
+      </div>
+      <hr class="section-divider border-slate-200 dark:border-slate-800 mb-8 reveal">
+
+      <div class="max-w-3xl space-y-5">
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6 relative overflow-hidden">
           <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#60a5fa,#22d3ee)"></div>
           <div class="flex flex-wrap items-start justify-between gap-2">
-            <h3 class="font-display font-bold text-base">M.S. in Data Science & Applications</h3>
-            <span class="font-mono text-xs text-brand-400 bg-brand-500/10 border border-brand-400/25 px-2.5 py-1 rounded-lg">Dec 2025</span>
+            <h3 class="font-display font-bold text-base">M.S. in Data Science &amp; Applications</h3>
+            <span class="font-mono text-xs text-slate-400">Dec 2025</span>
           </div>
           <p class="font-mono text-xs text-slate-500 mt-1">University at Buffalo, SUNY · Buffalo, NY</p>
-          <div class="mt-3">
-            <span class="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/40 px-2.5 py-0.5 rounded">GPA 4.0 / 4.0</span>
-          </div>
-          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Coursework: ML, Deep Learning, Statistical Data Mining, Database Management Systems, Cybersecurity Privacy &amp; Ethics, AI Systems.</p>
+          <span class="mt-2 inline-block font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/40 px-2 py-0.5 rounded">GPA 4.0 / 4.0</span>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">ML, Deep Learning, Statistical Data Mining, Database Management Systems, Cybersecurity Privacy &amp; Ethics, AI Systems.</p>
         </div>
-
-        <div class="reveal rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6 relative overflow-hidden">
+        <div class="reveal rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-6 relative overflow-hidden">
           <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#60a5fa,#22d3ee)"></div>
           <div class="flex flex-wrap items-start justify-between gap-2">
             <h3 class="font-display font-bold text-base">B.Sc. (Hons) in Mathematics</h3>
-            <span class="font-mono text-xs text-brand-400 bg-brand-500/10 border border-brand-400/25 px-2.5 py-1 rounded-lg">2020 – 2023</span>
+            <span class="font-mono text-xs text-slate-400">2020 – 2023</span>
           </div>
           <p class="font-mono text-xs text-slate-500 mt-1">Sri Venkateswara College, University of Delhi · India</p>
-          <div class="mt-3">
-            <span class="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/40 px-2.5 py-0.5 rounded">GPA 3.2 / 4.0</span>
-          </div>
-          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Coursework: Calculus, Multivariate Calculus, Linear Algebra, Statistical Methods, Applied Statistics, Mathematical Finance, Group Theory, Ring Theory, Real Analysis, Metric Spaces.</p>
+          <span class="mt-2 inline-block font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/40 px-2 py-0.5 rounded">GPA 3.2 / 4.0</span>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Calculus, Linear Algebra, Statistical Methods, Applied Statistics, Mathematical Finance, Group Theory, Real Analysis, Metric Spaces.</p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ── CONTACT ── -->
-  <section id="contact" class="py-20 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-200/70 dark:border-slate-800">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="reveal max-w-xl mx-auto rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1422] p-10 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#60a5fa,#22d3ee)"></div>
-        <p class="font-mono text-xs text-brand-400 uppercase tracking-widest mb-2">// 06 — Contact</p>
-        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Let's build something together.</h2>
-        <p class="mt-3 text-sm text-slate-600 dark:text-slate-400 max-w-sm mx-auto">Open to internships, full-time roles, and collaborations in Data Science, ML Engineering, and NLP.</p>
-        <a href="mailto:aarushi.jugran@gmail.com"
-           class="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-400 border border-brand-400/30 bg-brand-500/10 rounded-lg px-5 py-2.5 hover:border-brand-400 hover:shadow-glow hover:-translate-y-0.5 transition-all">
-          ✉ aarushi.jugran@gmail.com
+  <hr class="section-divider border-slate-200/70 dark:border-slate-800/60">
+
+  <!-- ══════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════ -->
+  <section id="contact" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mb-2">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">Let's build something together</h2>
+      </div>
+      <hr class="section-divider border-slate-200 dark:border-slate-800 mb-6 reveal">
+      <p class="reveal text-slate-600 dark:text-slate-400 mb-6 max-w-xl">Open to internships, full-time roles and collaborations in Data Science, ML Engineering, and NLP. Best way to reach me is email.</p>
+      <div class="reveal flex flex-wrap gap-3">
+        <a href="/cdn-cgi/l/email-protection#e081819295938889ce8a958792818ea0878d81898cce838f8d" class="inline-flex items-center gap-2 rounded-md bg-brand-500 text-white px-5 py-2.5 font-mono text-sm shadow-glow hover:bg-brand-400 hover:-translate-y-0.5 transition-all">
+          Email Me
         </a>
-        <div class="mt-5 flex flex-wrap gap-3 justify-center">
-          <a href="https://github.com/Aarushi02" target="_blank" rel="noopener"
-             class="rounded-lg border border-slate-200 dark:border-slate-700 px-5 py-2.5 text-sm font-mono hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">GitHub</a>
-          <a href="https://www.linkedin.com/in/aarushi-jugran-326a01217/" target="_blank" rel="noopener"
-             class="rounded-lg border border-slate-200 dark:border-slate-700 px-5 py-2.5 text-sm font-mono hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">LinkedIn</a>
-          <a href="resume.aarushi.pdf" target="_blank" rel="noopener"
-             class="rounded-lg bg-brand-500 text-white px-5 py-2.5 text-sm font-mono shadow-glow hover:bg-brand-400 hover:-translate-y-0.5 transition-all">Resume ↗</a>
-        </div>
+        <a href="https://github.com/Aarushi02" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-5 py-2.5 font-mono text-sm hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/aarushi-jugran-326a01217/" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-md border border-slate-200 dark:border-slate-700 px-5 py-2.5 font-mono text-sm hover:border-brand-400/50 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
+          LinkedIn
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
-  <footer class="py-10 border-t border-slate-200/60 dark:border-slate-800/60">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="font-mono text-xs">© <span id="year"></span> Aarushi Jugran. All rights reserved.</p>
-      <div class="flex gap-5 font-mono text-xs">
-        <a href="#home" class="hover:text-brand-400 transition-colors">Back to top ↑</a>
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="py-8 border-t border-slate-200/60 dark:border-slate-800/60">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
+      <div class="flex items-center gap-2">
+        <span>Aarushi Jugran © <span id="year"></span></span>
+        <span>•</span>
+        <span id="day-greeting"></span>
+        <span>•</span>
+        <a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a>
+        <span>•</span>
         <a href="/sitemap.xml" class="hover:text-brand-400 transition-colors">Sitemap</a>
       </div>
+      <a href="#home" class="hover:text-brand-400 transition-colors">Back to top ↑</a>
     </div>
   </footer>
 
   <script>
-    // Dark mode
+    // ── dark mode — default DARK ──
     const toggle = document.getElementById('themeToggle');
     const root   = document.documentElement;
     const KEY    = 'preferred-theme';
     function applyTheme(t) {
-      if (t === 'dark') { root.classList.add('dark');    toggle.textContent = '☀️'; }
-      else              { root.classList.remove('dark'); toggle.textContent = '🌙'; }
+      t === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
+      toggle.textContent = t === 'dark' ? '☀️' : '🌙';
     }
-    const saved = localStorage.getItem(KEY) ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const saved = localStorage.getItem(KEY) || 'dark';
     applyTheme(saved);
     toggle.addEventListener('click', () => {
       const next = root.classList.contains('dark') ? 'light' : 'dark';
-      localStorage.setItem(KEY, next);
-      applyTheme(next);
+      localStorage.setItem(KEY, next); applyTheme(next);
     });
 
-    // Year
+    // ── year ──
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Scroll reveal
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          obs.unobserve(entry.target);
+    // ── day greeting — Parth style ──
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    document.getElementById('day-greeting').textContent =
+      'Have a good ' + days[new Date().getDay()] + '!';
+
+    // ── scroll reveal — works locally (file://) AND on GitHub Pages ──
+    function revealInView() {
+      document.querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 40 && rect.bottom >= 0) {
+          setTimeout(() => el.classList.add('visible'), i * 55);
         }
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }
+    revealInView(); // run immediately so hero is never blank
+    window.addEventListener('scroll', revealInView, { passive: true });
   </script>
 </body>
 </html>
